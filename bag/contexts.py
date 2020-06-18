@@ -11,7 +11,7 @@ def bag_contents(request):
     bag = request.session.get('bag', {})
 
     for item_id, item_data in bag.items():
-        if isinstance('item_data', int):
+        if isinstance(item_data, int):
             product = get_object_or_404(Product, pk=item_id)
             total += item_data * product.price
             product_count += item_data
@@ -31,6 +31,8 @@ def bag_contents(request):
                     'product': product,
                     'size': size,
                 })
+
+                
 
     if total < settings.FREE_DELIVERY_THRESHOLD:
         delivery = total * Decimal(settings.STANDARD_DELIVERY_PERCENTAGE/100)
